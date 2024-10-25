@@ -5,6 +5,8 @@ Renderer::Renderer(Window& parent) : OGLRenderer(parent) {
 
 	matrixShader = new Shader("matrixVertex.glsl", "colourFragment.glsl");
 
+	camera = new Camera();
+
 	if (!matrixShader->LoadSuccess()) {
 		return;
 	}
@@ -17,6 +19,7 @@ Renderer::Renderer(Window& parent) : OGLRenderer(parent) {
 Renderer::~Renderer(void) {
 	delete triangle;
 	delete matrixShader;
+	delete camera;
 }
 
 void Renderer::SwitchToPerspective() {
@@ -47,4 +50,9 @@ void Renderer::RenderScene() {
 		glUniformMatrix4fv(glGetUniformLocation(matrixShader->GetProgram(), "modelMatrix"), 1, false, modelMatrix.values);
 		triangle->Draw();
 	}
+}
+
+void Renderer::UpdateScene(float dt) {
+	camera->UpdateCamera(dt);
+	viewMatrix = camera->BuildViewMatrix();
 }
