@@ -3,9 +3,9 @@
 Renderer::Renderer(Window& parent) : OGLRenderer(parent) {
 	triangle = Mesh::GenerateTriangle();
 
-	matrixShader = new Shader("MatrixVertex.glsl", "colourFragment.glsl");
+	matrixShader = new Shader("matrixVertex.glsl", "colourFragment.glsl");
 
-	if (!matrixShader->LoadSucess()) {
+	if (!matrixShader->LoadSuccess()) {
 		return;
 	}
 
@@ -24,7 +24,7 @@ void Renderer::SwitchToPerspective() {
 }
 
 void Renderer::SwitchToOrthographic() {
-	projMatrix = Matrix4::Orthographic(-1, 1, 1, -1, 1, -1);
+	projMatrix = Matrix4::Orthographic(-1.0f, 10000.0f, width / 2.0f, -width / 2.0f, height / 2.0f, -height / 2.0f);
 }
 
 void Renderer::RenderScene() {
@@ -44,6 +44,7 @@ void Renderer::RenderScene() {
 
 		modelMatrix = Matrix4::Translation(tempPos) * Matrix4::Rotation(rotation, Vector3(0, 1, 0)) * Matrix4::Scale(Vector3(scale, scale, scale));
 
-		glUniformMatrix4fv(glGetUniformLocation(matrixShader->GetProgram(), "modelMatrix"), 1, false, modelMatrix.values, triangle->Draw);
+		glUniformMatrix4fv(glGetUniformLocation(matrixShader->GetProgram(), "modelMatrix"), 1, false, modelMatrix.values);
+		triangle->Draw();
 	}
 }

@@ -18,7 +18,7 @@ public:
 
 protected:
 	Mesh* triangle;
-	Shader* Shader;
+	Shader* matrixShader;
 	float scale;
 	float rotation;
 	Vector3 position;
