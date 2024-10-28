@@ -11,7 +11,7 @@ out vec4 fragColor;
 void main(void){
     vec4 value = texture(diffuseTex, IN.texCoord).rgba;
 
-    if(value.a < 0.0){
+    if(value.a == 0.0){
         discard;
     }
     fragColor = value;
