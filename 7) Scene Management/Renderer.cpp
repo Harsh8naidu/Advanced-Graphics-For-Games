@@ -20,7 +20,7 @@ Renderer::Renderer(Window& parent) : OGLRenderer(parent) {
 
 	for (int i = 0; i < 5; ++i) {
 		SceneNode* s = new SceneNode(cube, Vector4(1, 0, 0, 1));
-		s->SetColour(Vector4(1.0f, 1.0f, 1.0f, 5.0f));
+		s->SetColour(Vector4(1.0f, 1.0f, 1.0f,0.5f));
 		s->SetTransform(Matrix4::Translation(Vector3(0, 100.0f, -300.0f + 100.0f + 100 * i)));
 		s->SetModelScale(Vector3(100.0f, 100.0f, 100.0f));
 		s->SetBoundingRadius(100.0f);

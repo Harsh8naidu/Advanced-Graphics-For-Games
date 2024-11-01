@@ -30,12 +30,12 @@ CubeRobot::CubeRobot(Mesh* cube) {
 
 	SceneNode* leftLeg = new SceneNode(cube, Vector4(0, 0, 1, 1)); // Blue
 	leftLeg->SetModelScale(Vector3(3, -17.5, 3));
-	leftLeg->SetTransform(Matrix4::Translation(Vector3(-5, 0, 0)));
+	leftLeg->SetTransform(Matrix4::Translation(Vector3(-8, 0, 0)));
 	hips->AddChild(leftLeg);
 
 	SceneNode* rightLeg = new SceneNode(cube, Vector4(0, 0, 1, 1)); // Blue
 	rightLeg->SetModelScale(Vector3(3, -17.5, 3));
-	rightLeg->SetTransform(Matrix4::Translation(Vector3(5, 0, 0)));
+	rightLeg->SetTransform(Matrix4::Translation(Vector3(8, 0, 0)));
 	hips->AddChild(rightLeg);
 
 	body->SetBoundingRadius(15.0f);
