@@ -23,15 +23,29 @@ CubeRobot::CubeRobot(Mesh* cube) {
 	rightArm->SetTransform(Matrix4::Translation(Vector3(12, 30, -1)));
 	body->AddChild(rightArm);
 
+	SceneNode* hips = new SceneNode();
+	hips->SetModelScale(Vector3(10, 5, 5));
+	hips->SetTransform(Matrix4::Translation(Vector3(0, 3, 0)));
+	body->AddChild(hips);
+
 	SceneNode* leftLeg = new SceneNode(cube, Vector4(0, 0, 1, 1)); // Blue
 	leftLeg->SetModelScale(Vector3(3, -17.5, 3));
-	leftLeg->SetTransform(Matrix4::Translation(Vector3(-8, 0, 0)));
-	body->AddChild(leftLeg);
+	leftLeg->SetTransform(Matrix4::Translation(Vector3(-5, 0, 0)));
+	hips->AddChild(leftLeg);
 
 	SceneNode* rightLeg = new SceneNode(cube, Vector4(0, 0, 1, 1)); // Blue
 	rightLeg->SetModelScale(Vector3(3, -17.5, 3));
-	rightLeg->SetTransform(Matrix4::Translation(Vector3(8, 0, 0)));
-	body->AddChild(rightLeg);
+	rightLeg->SetTransform(Matrix4::Translation(Vector3(5, 0, 0)));
+	hips->AddChild(rightLeg);
+
+	body->SetBoundingRadius(15.0f);
+	head->SetBoundingRadius(5.0f);
+
+	leftArm->SetBoundingRadius(18.0f);
+	rightArm->SetBoundingRadius(18.0f);
+
+	leftLeg->SetBoundingRadius(18.0f);
+	rightLeg->SetBoundingRadius(18.0f);
 }
 
 void CubeRobot::Update(float dt) {
