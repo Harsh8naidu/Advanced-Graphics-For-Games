@@ -315,6 +315,55 @@ Mesh* Mesh::GenerateQuad()
 	return m;
 }
 
+void Mesh::GenerateNormals()
+{
+	if (!normals) {
+		normals = new Vector3[numVertices];
+	}
+
+	for(GLuint i = 0; i < numVertices; ++i) {
+		normals[i] = Vector3();
+	}
+
+	int triCount = GetTriCount();
+
+	for(GLuint i = 0; i < triCount; ++i ) {
+		unsigned int a, b, c;
+		if (!GetVertexIndicesForTri(i, a, b, c)) {
+			continue;
+		}
+
+		Vector3 normal = Vector3::Cross((vertices[b] - vertices[a]), (vertices[c] - vertices[a]));
+
+		normals[a] += normal;
+		normals[b] += normal;
+		normals[c] += normal;
+	}
+
+	for(GLuint i = 0; i < numVertices; ++i) {
+		normals[i].Normalise();
+	}
+}
+
+bool Mesh::GetVertexIndicesForTri(unsigned int i, unsigned int& a, unsigned int& b, unsigned int& c) const
+{
+	unsigned int triCount = GetTriCount();
+	if (i >= triCount) {
+		return false;
+	}
+	if (numIndices > 0) {
+		a = indices[i * 3];
+		b = indices[(i * 3) + 1];
+		c = indices[(i * 3) + 2];
+	}
+	else {
+		a = i * 3;
+		b = (i * 3) + 1;
+		c = (i * 3) + 2;
+	}
+	return true;
+}
+
 Mesh* Mesh::LoadFromMeshFile(const string& name) {
 	Mesh* mesh = new Mesh();
 
