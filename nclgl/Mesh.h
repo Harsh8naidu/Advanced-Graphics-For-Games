@@ -89,6 +89,9 @@ public:
 
 protected:
 	void	BufferData();
+	void	GenerateTangents();
+	
+	Vector4 GenerateTangent(int a, int b, int c);
 
 	GLuint	arrayObject;
 
